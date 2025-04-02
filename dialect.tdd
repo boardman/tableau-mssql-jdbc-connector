@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<dialect name='MSSQL2022'
+         class='mssql_jdbc'
+         version='18.1'>
+  <function-map>
+    <!-- Numeric Functions -->
+    <function group='numeric' name='ABS' return-type='real'>
+      <formula>ABS(%1)</formula>
+      <argument type='real' />
+    </function>
+
+    <function group='numeric' name='ACOS' return-type='real'>
+      <formula>ACOS(%1)</formula>
+      <argument type='real' />
+    </function>
+
+    <function group='numeric' name='ASIN' return-type='real'>
+      <formula>ASIN(%1)</formula>
+      <argument type='real' />
+    </function>
+
+    <function group='numeric' name='ATAN' return-type='real'>
+      <formula>ATN(%1)</formula>
+      <argument type='real' />
+    </function>
+
+    <function group='numeric' name='ATAN2' return-type='real'>
+      <formula>ATN2(%1, %2)</formula>
+      <argument type='real' />
+      <argument type='real' />
+    </function>
+
+    <function group='numeric' name='CEILING' return-type='int'>
+      <formula>CEILING(%1)</formula>
+      <argument type='real' />
+    </function>
+
+    <function group='numeric' name='COS' return-type='real'>
+      <formula>COS(%1)</formula>
+      <argument type='real' />
+    </function>
+
+    <function group='numeric' name='COT' return-type='real'>
+      <formula>COT(%1)</formula>
+      <argument type='real' />
+    </function>
+
+    <function group='numeric' name='DEGREES' return-type='real'>
+      <formula>DEGREES(%1)</formula>
+      <argument type='real' />
+    </function>
+
+    <function group='numeric' name='DIV' return-type='int'>
+      <formula>CASE WHEN %2 = 0 THEN NULL ELSE %1 / %2 END</formula>
+      <argument type='int' />
+      <argument type='int' />
+    </function>
+
+    <function group='numeric' name='EXP' return-type='real'>
+      <formula>EXP(%1)</formula>
+      <argument type='real' />
+    </function>
+
+    <function group='numeric' name='FLOOR' return-type='int'>
+      <formula>FLOOR(%1)</formula>
+      <argument type='real' />
+    </function>
+
+    <!-- String Functions -->
+    <function group='string' name='ASCII' return-type='int'>
+      <formula>ASCII(CAST(%1 AS NVARCHAR(MAX)))</formula>
+      <argument type='str' />
+    </function>
+
+    <function group='string' name='CHAR' return-type='str'>
+      <formula>CHAR(%1)</formula>
+      <argument type='real' />
+    </function>
+
+    <function group='string' name='LEFT' return-type='str'>
+      <formula>LEFT(CAST(%1 AS NVARCHAR(MAX)), %2)</formula>
+      <argument type='str' />
+      <argument type='real' />
+    </function>
+
+    <function group='string' name='LEN' return-type='int'>
+      <formula>LEN(CAST(%1 AS NVARCHAR(MAX)))</formula>
+      <argument type='str' />
+    </function>
+
+    <function group='string' name='LOWER' return-type='str'>
+      <formula>LOWER(CAST(%1 AS NVARCHAR(MAX)))</formula>
+      <argument type='str' />
+    </function>
+
+    <function group='string' name='LTRIM' return-type='str'>
+      <formula>LTRIM(CAST(%1 AS NVARCHAR(MAX)))</formula>
+      <argument type='str' />
+    </function>
+
+    <function group='string' name='RIGHT' return-type='str'>
+      <formula>RIGHT(CAST(%1 AS NVARCHAR(MAX)), %2)</formula>
+      <argument type='str' />
+      <argument type='real' />
+    </function>
+
+    <!-- Date Functions -->
+    <function group='date' name='DATEADD' return-type='datetime'>
+      <formula>DATEADD(%1, %2, %3)</formula>
+      <argument type='str' />
+      <argument type='int' />
+      <argument type='datetime' />
+    </function>
+
+    <function group='date' name='DATEDIFF' return-type='int'>
+      <formula>DATEDIFF(%1, %2, %3)</formula>
+      <argument type='str' />
+      <argument type='datetime' />
+      <argument type='datetime' />
+    </function>
+
+    <function group='date' name='DATEPART' return-type='int'>
+      <formula>DATEPART(%1, %2)</formula>
+      <argument type='str' />
+      <argument type='datetime' />
+    </function>
+
+    <function group='date' name='GETDATE' return-type='datetime'>
+      <formula>GETDATE()</formula>
+    </function>
+
+    <!-- Aggregate Functions -->
+    <function group='aggregate' name='COUNT' return-type='int'>
+      <formula>COUNT(%1)</formula>
+      <argument type='str' />
+    </function>
+
+    <function group='aggregate' name='SUM' return-type='real'>
+      <formula>SUM(%1)</formula>
+      <argument type='real' />
+    </function>
+
+    <function group='aggregate' name='AVG' return-type='real'>
+      <formula>AVG(%1)</formula>
+      <argument type='real' />
+    </function>
+
+    <function group='aggregate' name='MIN' return-type='real'>
+      <formula>MIN(%1)</formula>
+      <argument type='real' />
+    </function>
+
+    <function group='aggregate' name='MAX' return-type='real'>
+      <formula>MAX(%1)</formula>
+      <argument type='real' />
+    </function>
+  </function-map>
+
+  <supported-aggregations>
+    <aggregation value='AGG_COUNT'/>
+    <aggregation value='AGG_SUM'/>
+    <aggregation value='AGG_AVG'/>
+    <aggregation value='AGG_MIN'/>
+    <aggregation value='AGG_MAX'/>
+    <aggregation value='AGG_STDEV'/>
+    <aggregation value='AGG_VAR'/> 
+  </supported-aggregations>
+
+  <sql-format>
+    <base-types>
+        <local-type name="bool" value="bit"/>
+        <local-type name="datetime" value="datetime2"/>
+        <local-type name="date" value="date"/>
+        <local-type name="int" value="bigint"/>
+        <local-type name="real" value="float"/>
+        <local-type name="str" value="nvarchar(max)"/>
+    </base-types>
+    <date-literal-escape value='Standard'/>
+    <date-parts>
+        <date-part-group>
+            <part name="year" value="yy"/>
+            <part name="month" value="mm"/>
+            <part name="day" value="dd"/>
+            <part name="hour" value="hh"/>
+            <part name="minute" value="mi"/>
+            <part name="second" value="ss"/>
+        </date-part-group>
+    </date-parts>
+    <format-bool-as-value value="TrueFirst"/>
+    <format-column-definition>
+        <local-type name="bool">
+            <remote-type name="BOOL" value="bit"/>
+        </local-type>
+    </format-column-definition>
+    <format-date-literal formula="CONVERT(DATE, '%1', 23)" format='yyyy-MM-dd'/>
+    <format-datetime-literal formula="CONVERT(DATETIME2, '%1', 121)" format='yyyy-MM-dd HH:mm:ss.SSS'/>
+    <format-null>
+        <local-type name="str" value="NULL"/>
+    </format-null>
+    <format-select>
+        <part name='Select' value='SELECT %1'/>
+        <part name='From' value='FROM %1'/>
+        <part name='Where' value='WHERE %1'/>
+        <part name='Group' value='GROUP BY %1'/>
+        <part name='Having' value='HAVING %1'/>
+        <part name='OrderBy' value='ORDER BY %1'/>
+    </format-select>
+  </sql-format>
+
+</dialect>

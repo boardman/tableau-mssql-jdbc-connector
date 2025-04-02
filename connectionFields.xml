@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<connection-fields>
+  <field name="server" label="Server" value-type="string" category="endpoint" >
+    
+  </field>
+
+  <field name="port" label="Port" value-type="string" category="endpoint" default-value="1433" />
+
+  <field name="authentication" label="Authentication" category="authentication" value-type="string" editable="false" default-value="auth-user-pass" />
+
+  <field name="username" label="Username" value-type="string" category="authentication" />
+
+  <field name="password" label="Password" value-type="string" category="authentication" secure="true" />
+
+  <field name="sslmode" label="Require SSL" value-type="boolean" category="general" default-value="" >
+    <boolean-options>
+      <false-value value="" />
+      <true-value value="require" />
+    </boolean-options>
+  </field>
+
+  <!-- Added fields for Always Encrypted support -->
+    <field name="v-keystore_path" 
+           label="Keystore Path" 
+           value-type="string" 
+           category="general" 
+           optional="true"
+           />
+
+    <field name="v-keystore_password" 
+           label="Keystore Password" 
+           value-type="string" 
+           category="general" 
+           optional="true"
+           />
+
+    <field name="v-column_encryption" 
+           label="Enable Column Encryption" 
+           value-type="boolean" 
+           category="general" 
+           default-value="">
+        <boolean-options>
+            <false-value value=""/>
+            <true-value value="enabled"/>
+        </boolean-options>
+    </field>
+</connection-fields>
